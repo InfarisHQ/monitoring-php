@@ -1,0 +1,36 @@
+{
+  "name": "infaris/monitoring",
+  "description": "Guard by Infaris App Monitoring for PHP: requests per route, cache hit/miss, database queries, errors, logs and traces for Shopware, Symfony, Laravel, WordPress and plain PHP.",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["apm", "monitoring", "tracing", "shopware", "symfony", "laravel", "wordpress", "opentelemetry"],
+  "require": {
+    "php": ">=8.1",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  },
+  "suggest": {
+    "ext-curl": "Faster and more reliable delivery; falls back to PHP streams without it.",
+    "ext-opentelemetry": "With open-telemetry/opentelemetry-auto-pdo, every PDO query (also in Shopware) joins the request trace."
+  },
+  "autoload": {
+    "psr-4": {
+      "Infaris\\Monitoring\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Infaris\\Monitoring\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": ["Infaris\\Monitoring\\Laravel\\GuardServiceProvider"]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
