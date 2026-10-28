@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * Shopware), captures exceptions, adds the Doctrine middleware when
  * DoctrineBundle is installed and provides the Monolog handler service
  * `infaris_monitoring.monolog_handler`. Configuration comes from the
- * environment (PULSEGUARD_API_KEY, ...; see Config::fromEnv()).
+ * environment (INFARIS_MONITORING_API_KEY, ...; see Config::fromEnv()).
  */
 final class InfarisMonitoringBundle extends Bundle
 {

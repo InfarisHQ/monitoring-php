@@ -53,17 +53,17 @@ final class Config
             : in_array(strtolower($v), ['1', 'true', 'yes', 'on'], true);
 
         $values = [
-            'apiKey' => $env('PULSEGUARD_API_KEY', 'GUARD_API_KEY') ?? '',
-            'apiUrl' => rtrim($env('PULSEGUARD_API_URL') ?? 'https://api.ipulse.one', '/'),
-            'environment' => $env('PULSEGUARD_ENVIRONMENT', 'APP_ENV'),
-            'serviceName' => $env('PULSEGUARD_SERVICE_NAME', 'OTEL_SERVICE_NAME'),
-            'traceSampleRate' => (float) ($env('PULSEGUARD_TRACE_SAMPLE_RATE') ?? 1.0),
-            'captureQueries' => $bool($env('PULSEGUARD_CAPTURE_QUERIES'), true),
-            'minLogLevel' => strtolower($env('PULSEGUARD_LOG_LEVEL') ?? 'warning'),
-            'httpCache' => $bool($env('PULSEGUARD_HTTP_CACHE', 'SHOPWARE_HTTP_CACHE_ENABLED'), false),
-            'finishRequestFirst' => $bool($env('PULSEGUARD_FINISH_REQUEST_FIRST'), false),
-            'version' => $env('PULSEGUARD_VERSION', 'APP_VERSION'),
-            'commitSha' => $env('PULSEGUARD_COMMIT_SHA', 'GIT_COMMIT', 'COMMIT_SHA'),
+            'apiKey' => $env('INFARIS_MONITORING_API_KEY', 'PULSEGUARD_API_KEY', 'GUARD_API_KEY') ?? '',
+            'apiUrl' => rtrim($env('INFARIS_MONITORING_API_URL', 'PULSEGUARD_API_URL') ?? 'https://api.ipulse.one', '/'),
+            'environment' => $env('INFARIS_MONITORING_ENVIRONMENT', 'PULSEGUARD_ENVIRONMENT', 'APP_ENV'),
+            'serviceName' => $env('INFARIS_MONITORING_SERVICE_NAME', 'PULSEGUARD_SERVICE_NAME', 'OTEL_SERVICE_NAME'),
+            'traceSampleRate' => (float) ($env('INFARIS_MONITORING_TRACE_SAMPLE_RATE', 'PULSEGUARD_TRACE_SAMPLE_RATE') ?? 1.0),
+            'captureQueries' => $bool($env('INFARIS_MONITORING_CAPTURE_QUERIES', 'PULSEGUARD_CAPTURE_QUERIES'), true),
+            'minLogLevel' => strtolower($env('INFARIS_MONITORING_LOG_LEVEL', 'PULSEGUARD_LOG_LEVEL') ?? 'warning'),
+            'httpCache' => $bool($env('INFARIS_MONITORING_HTTP_CACHE', 'PULSEGUARD_HTTP_CACHE', 'SHOPWARE_HTTP_CACHE_ENABLED'), false),
+            'finishRequestFirst' => $bool($env('INFARIS_MONITORING_FINISH_REQUEST_FIRST', 'PULSEGUARD_FINISH_REQUEST_FIRST'), false),
+            'version' => $env('INFARIS_MONITORING_VERSION', 'PULSEGUARD_VERSION', 'APP_VERSION'),
+            'commitSha' => $env('INFARIS_MONITORING_COMMIT_SHA', 'PULSEGUARD_COMMIT_SHA', 'GIT_COMMIT', 'COMMIT_SHA'),
         ];
 
         return new self(...array_merge($values, $overrides));

@@ -15,13 +15,14 @@ composer require infaris/monitoring
 ```
 
 ```bash
-PULSEGUARD_API_KEY=pgm_...            # the App Monitoring key, from a secret store
-PULSEGUARD_ENVIRONMENT=production     # optional, falls back to APP_ENV
-PULSEGUARD_HTTP_CACHE=1               # Shopware/Symfony HttpCache: count hits and misses
-PULSEGUARD_FINISH_REQUEST_FIRST=1     # PHP-FPM: answer the visitor before delivering
+INFARIS_MONITORING_API_KEY=pgm_...            # the App Monitoring key, from a secret store
+INFARIS_MONITORING_ENVIRONMENT=production     # optional, falls back to APP_ENV
+INFARIS_MONITORING_HTTP_CACHE=1               # Shopware/Symfony HttpCache: count hits and misses
+INFARIS_MONITORING_FINISH_REQUEST_FIRST=1     # PHP-FPM: answer the visitor before delivering
 ```
 
-All settings: `src/Config.php` (`Config::fromEnv()`).
+All settings: `src/Config.php` (`Config::fromEnv()`). The older
+`PULSEGUARD_*` names are still read as a fallback.
 
 ### Shopware 6 and Symfony
 
@@ -58,7 +59,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=https://api.ipulse.one/api/app-monitoring/otlp
 OTEL_EXPORTER_OTLP_HEADERS=x-api-key=pgm_...
 OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_METRICS_EXPORTER=none
-PULSEGUARD_CAPTURE_QUERIES=0   # queries now come from PDO
+INFARIS_MONITORING_CAPTURE_QUERIES=0   # queries now come from PDO
 ```
 
 ### Laravel
@@ -74,7 +75,7 @@ SDK in `wp-content/mu-plugins/infaris-monitoring/` or via Composer). Routes are
 page types (`wp:single-product`, `wp:checkout`, ...). In `wp-config.php`:
 
 ```php
-define('PULSEGUARD_API_KEY', getenv('PULSEGUARD_API_KEY'));
+define('INFARIS_MONITORING_API_KEY', getenv('INFARIS_MONITORING_API_KEY'));
 define('SAVEQUERIES', true); // database queries as spans
 ```
 
@@ -107,10 +108,10 @@ Doctrine DBAL 3.2+ and 4 outside Symfony:
   rules), release and the W3C trace ids. Guard derives the request span from it.
 - Child spans (queries, outgoing calls) as OTLP JSON to
   `POST /api/app-monitoring/otlp/v1/traces`, only for sampled traces
-  (`PULSEGUARD_TRACE_SAMPLE_RATE`). SQL literals are replaced by `?` before
+  (`INFARIS_MONITORING_TRACE_SAMPLE_RATE`). SQL literals are replaced by `?` before
   sending; Guard does it again on arrival.
 - Application log lines for exceptions, fatal errors and log records at or
-  above `PULSEGUARD_LOG_LEVEL` (default `warning`).
+  above `INFARIS_MONITORING_LOG_LEVEL` (default `warning`).
 
 ## Development
 

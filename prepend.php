@@ -7,7 +7,7 @@
  *     auto_prepend_file = /path/to/vendor/infaris/monitoring/prepend.php
  *
  * Starting this early also counts responses that an HttpCache in front of
- * the framework serves (PULSEGUARD_HTTP_CACHE=1 marks those as cache hits).
+ * the framework serves (INFARIS_MONITORING_HTTP_CACHE=1 marks those as cache hits).
  */
 
 declare(strict_types=1);

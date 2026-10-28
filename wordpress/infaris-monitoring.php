@@ -6,9 +6,10 @@
  *
  * Put this file in wp-content/mu-plugins/ and the SDK next to it in
  * wp-content/mu-plugins/infaris-monitoring/ (or install it with Composer).
- * Set PULSEGUARD_API_KEY in the environment or in wp-config.php:
+ * Set INFARIS_MONITORING_API_KEY in the environment or in wp-config.php
+ * (the older PULSEGUARD_* names still work):
  *
- *     define('PULSEGUARD_API_KEY', 'pgm_...');
+ *     define('INFARIS_MONITORING_API_KEY', 'pgm_...');
  *     define('SAVEQUERIES', true); // database queries as spans
  */
 
@@ -26,9 +27,12 @@ if (!class_exists(Monitor::class)) {
 }
 
 $infarisOverrides = [];
-foreach (['PULSEGUARD_API_KEY' => 'apiKey', 'PULSEGUARD_API_URL' => 'apiUrl', 'PULSEGUARD_ENVIRONMENT' => 'environment'] as $constant => $field) {
-    if (defined($constant)) {
-        $infarisOverrides[$field] = (string) constant($constant);
+foreach (['API_KEY' => 'apiKey', 'API_URL' => 'apiUrl', 'ENVIRONMENT' => 'environment'] as $suffix => $field) {
+    foreach (['INFARIS_MONITORING_' . $suffix, 'PULSEGUARD_' . $suffix] as $constant) {
+        if (defined($constant)) {
+            $infarisOverrides[$field] = (string) constant($constant);
+            break;
+        }
     }
 }
 $infarisMonitor = Monitor::start(Config::fromEnv($infarisOverrides));

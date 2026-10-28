@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Infaris\Monitoring\Tests;
 
 use Infaris\Monitoring\CacheStatus;
+use Infaris\Monitoring\Config;
 use Infaris\Monitoring\Sql;
 use Infaris\Monitoring\TraceContext;
 use PHPUnit\Framework\TestCase;
@@ -39,5 +40,18 @@ final class HelpersTest extends TestCase
         self::assertNull(TraceContext::parse('00-00000000000000000000000000000000-b7ad6b7169203331-01'));
         self::assertNull(TraceContext::parse('garbage'));
         self::assertSame(1, TraceContext::parse('00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01')['traceFlags']);
+    }
+
+    public function testConfigPrefersInfarisNamesOverLegacy(): void
+    {
+        putenv('PULSEGUARD_API_KEY=pgm_old');
+        try {
+            self::assertSame('pgm_old', Config::fromEnv()->apiKey);
+            putenv('INFARIS_MONITORING_API_KEY=pgm_new');
+            self::assertSame('pgm_new', Config::fromEnv()->apiKey);
+        } finally {
+            putenv('PULSEGUARD_API_KEY');
+            putenv('INFARIS_MONITORING_API_KEY');
+        }
     }
 }
